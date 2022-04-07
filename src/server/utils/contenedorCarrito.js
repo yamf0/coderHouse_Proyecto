@@ -1,6 +1,6 @@
 import fs from 'fs'
 //const fs = require('fs')
-
+//TODO ADD TIMESTAM AND REQUIRED CAR STRUCTURE
 class contenedorCarritos{
     
     constructor(){
