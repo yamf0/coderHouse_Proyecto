@@ -32,6 +32,7 @@ class contenedorProducto{
             currIdx = 0
         }
         newProd.id = currIdx + 1
+        newProd.timestamp = Date.now()
         this.productos.push(newProd)
         let res = await this.saveProductsList(this.productos)
         if (res){

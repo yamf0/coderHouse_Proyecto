@@ -17,6 +17,7 @@ class contenedorCarritos{
         console.log("Adding new shopping car")
         let newCar = {
             "id": null,
+            "timestamp": Date.now(),
             "products": []
         }
         try{
@@ -30,7 +31,6 @@ class contenedorCarritos{
         let res = await this.saveCarsList(this.shoppingCar)
         if (res){
             console.log("Error while saving file")
-            return 3
         }
         return newCar.id
     }
@@ -56,6 +56,7 @@ class contenedorCarritos{
         let car = await this.shoppingCar.find(car => car.id == id)
         if(!car){
             console.log("Shopping Car not created yet")
+            return car
         }
         //console.log(car.products)
         return car.products
@@ -68,6 +69,13 @@ class contenedorCarritos{
             console.log("Shopping Car not created yet")
             return 1
         }
+        try{
+            var currProd = await car.products.slice(-1)[0].id
+        } catch(err){
+            console.log("Cars Products list is empty, generating id")
+            currProd = 0
+        }
+        newProd.id = currProd + 1
         car.products.push(newProd)
 
         let res = await this.saveCarsList(this.shoppingCar)
