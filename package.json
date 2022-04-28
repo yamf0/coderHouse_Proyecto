@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/server/server.js",
+    "start": "nodemon --experimental-json-modules ./src/server/server.js",
     "transpile": "babel ./src/server --out-dir dist-server",
     "clean": "rimraf dist-server",
     "build": "npm-run-all clean transpile"
