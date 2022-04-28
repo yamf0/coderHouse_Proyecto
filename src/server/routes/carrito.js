@@ -1,7 +1,9 @@
 import express from 'express'
 
-import contenedorCarrito from '../utils/contenedorCarrito'
-import contenedorProductos from '../utils/contenedorProductos'
+import { productDaoModule, carritoDaoModule } from '../daos/daoExporter.js'
+
+const productDao = productDaoModule.default
+const carritoDao = carritoDaoModule.default
 
 const router = express.Router()
 
@@ -13,16 +15,17 @@ router.get('/', (req, res) => {
 //Routes
 
 router.post('/', async (req, res)=> {
-    let resContainer = await contenedorCarrito.addShoppingCar()
-    if(resContainer == 3){
+    let resContainer = await carritoDao.addShoppingCar()
+    if(resContainer == null){
         console.warn("Shopping car File is not saved") 
+        return res.status(500).send({message: "Car Not Added", status: 500});
     }
     return res.status(201).send({message: "Car added", id: resContainer});
 })
 
 router.delete('/:id', async (req, res) => {
     let id = req.params.id
-    let resContainer = await contenedorCarrito.delShoppingCar(id)
+    let resContainer = await carritoDao.delShoppingCar(id)
     if(resContainer){
         return res.status(204).send({message: "Shopping Car not found"});
     }
@@ -34,7 +37,7 @@ router.delete('/:id', async (req, res) => {
 
 router.get('/:id/productos', async (req, res)=> {
     let id = req.params.id
-    let product = await contenedorCarrito.getProdsInCar(id)
+    let product = await carritoDao.getProdsInCar(id)
     if(product){
         return res.send(product);
     }
@@ -45,11 +48,11 @@ router.post('/:idCar/productos/:idProd', async (req, res)=> {
     let idCar = req.params.idCar
     let idProd = req.params.idProd
     //Get porod by Id
-    let newProd = await contenedorProductos.getProduct(idProd)
+    let newProd = await productDao.getProduct(idProd)
     if(!newProd){
         res.status(204).send({message: "Product does not exists"})
     }
-    let resContainer = await contenedorCarrito.addProduct(idCar, newProd)
+    let resContainer = await carritoDao.addProduct(idCar, newProd)
     if(resContainer){
         return res.status(204).send({message: "Shopping Car not found"});
     }
@@ -62,7 +65,7 @@ router.post('/:idCar/productos/:idProd', async (req, res)=> {
 router.delete('/:idCar/productos/:idProd', async (req, res) => {
     let idCar = req.params.idCar
     let idProd = req.params.idProd
-    let resContainer = await contenedorCarrito.delProduct(idCar, idProd)
+    let resContainer = await carritoDao.delProduct(idCar, idProd)
     if(resContainer){
         return res.status(204).send({message: "Shopping Car not found or product not in the shopping car"});
     }

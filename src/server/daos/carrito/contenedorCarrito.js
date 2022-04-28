@@ -31,6 +31,7 @@ class contenedorCarritos{
         let res = await this.saveCarsList(this.shoppingCar)
         if (res){
             console.log("Error while saving file")
+            return null
         }
         return newCar.id
     }

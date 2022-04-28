@@ -1,6 +1,6 @@
 import express from 'express'
-import productRouter from './routes/productos'
-import carritoRouter from './routes/carrito'
+import productRouter from './routes/productos.js'
+import carritoRouter from './routes/carrito.js'
 
 const PORT = 8080
 let app = express()

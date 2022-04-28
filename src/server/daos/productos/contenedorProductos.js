@@ -25,13 +25,6 @@ class contenedorProducto{
 
     addProduct = async (newProd) => {
         console.log("Adding new product")
-        try{
-            var currIdx = await this.productos.slice(-1)[0].id
-        } catch(err){
-            console.log("Products list is empty, generating id")
-            currIdx = 0
-        }
-        newProd.id = currIdx + 1
         newProd.timestamp = Date.now()
         this.productos.push(newProd)
         let res = await this.saveProductsList(this.productos)
@@ -78,6 +71,18 @@ class contenedorProducto{
         }
         return 0
     }
+
+    getAllProd = async () => {
+        console.log("Retrieving all products")
+        try{
+            this.productos = JSON.parse(fs.readFileSync('./src/server/db/productos.json'))
+        }catch(err){
+            console.log("Products list is empty, generating list")
+            this.productos = []
+            return 1
+        }
+        return this.productos
+      }
     
     saveProductsList = async (products)=> {
         let parsed = await JSON.stringify(products)
