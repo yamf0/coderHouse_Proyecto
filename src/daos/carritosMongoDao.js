@@ -1,7 +1,7 @@
-import { carrito } from '../../models/carritoModel.js';
+import { carrito } from '../models/carritoModel.js';
 
 import mongoose from 'mongoose';
-import config from '../../config/config.js';
+import config from '../config/config.js';
 
 class carritoMongoDao{
 

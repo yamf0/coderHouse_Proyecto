@@ -1,6 +1,10 @@
-import {producto} from '../../models/productosModel.js';
+import {producto} from '../models/productosModel.js';
 import mongoose from 'mongoose';
-import config from '../../config/config.js';
+import config from '../config/config.js';
+
+//import loggers
+import logger from '../loggers/loggers.js'
+
 class productMongoDao{
 
   constructor(){

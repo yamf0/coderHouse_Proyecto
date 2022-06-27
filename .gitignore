@@ -1,4 +1,5 @@
-dist-server/*
-node_modules/*
+**/node_modules
+
 .env
-**/firebase.json
+
+*.log

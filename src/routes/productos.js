@@ -1,10 +1,11 @@
 
 import express from 'express'
 
-import { productDaoModule } from '../daos/daoExporter.js'
+import productDao from '../daos/productsDao.js'
 import cookieAuth from '../utils/authUtils.js'
 
-const productDao = productDaoModule.default
+//import loggers
+import logger from '../loggers/loggers.js'
 
 const router = express.Router()
 

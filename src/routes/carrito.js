@@ -1,12 +1,11 @@
 import express from 'express'
 
-import { productDaoModule, carritoDaoModule } from '../daos/daoExporter.js'
-
-const productDao = productDaoModule.default
-const carritoDao = carritoDaoModule.default
+import productsDao from '../daos/productsDao.js'
+import carritoDao from '../daos/carritosMongoDao.js'
 
 const router = express.Router()
 
+import logger from '../loggers/loggers.js'
 
 router.get('/', (req, res) => {
     res.status(200).send('route at shoppingCars')
@@ -48,7 +47,7 @@ router.post('/:idCar/productos/:idProd', async (req, res)=> {
     let idCar = req.params.idCar
     let idProd = req.params.idProd
     //Get porod by Id
-    let newProd = await productDao.getProduct(idProd)
+    let newProd = await productsDao.getProduct(idProd)
     if(!newProd){
         res.status(204).send({message: "Product does not exists"})
     }

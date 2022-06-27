@@ -1,4 +1,2 @@
 pwd=""
-DBCONNECTION="mongo"
-DBCONNECTION="firebase"
-DBCONNECTION="filesystem"
+secret=""
