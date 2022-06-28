@@ -19,17 +19,18 @@ passport.use('register',
             if(userExists){
                 //User exists in DB no registration needed
                 logger.logInfo.info(`User ${email} already registered`)
-                return done(null, false)
+                return done(null, userExists)
             } else{
                 //Encryt pwd and register user
-                logger.logInfo.info(`User ${email} is not registered`)
-                
+                logger.logInfo.info(`User ${email} is not registered`)                
                 const user = { 
                     email: email,
                     password: password,
                     name: req.body.name,
                     address: req.body.address,
                     age: req.body.age,
+                    countryCode: req.body.countryCode,
+                    phone: req.body.phone,
                     photo: req.body.photo
                 } 
 

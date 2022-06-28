@@ -32,13 +32,13 @@ router.get('/register', (req, res) => {
 
 
 router.post('/logout', (req, res) => {
-    const username = req.user.username
+    const name = req.user.name
     req.logOut((err) => {
         if(err){
             res.render('logoutErr')
         }
         else{
-            res.render('logout', {username: username})
+            res.render('logout', {name: name})
         }
     })
     
