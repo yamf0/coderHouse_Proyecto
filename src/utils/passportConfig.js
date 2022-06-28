@@ -7,27 +7,39 @@ import logger from '../loggers/loggers.js'
 
 passport.use('register',
     new localStrategy(
-        {passReqToCallback: true},
-        async (req, username, password, done) => {
-            logger.logInfo.info(username)
-            const userExists =  await userDao.findUser(username)
+        {
+            usernameField : 'email',
+            passwordField : 'password',
+            passReqToCallback: true
+        },
+        async (req, email, password, done) => {
+            logger.logInfo.info(email)
+            const userExists =  await userDao.findUser(email)
 
             if(userExists){
                 //User exists in DB no registration needed
-                logger.logInfo.info(`User ${username} already registered`)
+                logger.logInfo.info(`User ${email} already registered`)
                 return done(null, false)
             } else{
                 //Encryt pwd and register user
-                logger.logInfo.info(`User ${username} is not registered`)
+                logger.logInfo.info(`User ${email} is not registered`)
                 
-                const user = { username: username, password: password}
-                
+                const user = { 
+                    email: email,
+                    password: password,
+                    name: req.body.name,
+                    address: req.body.address,
+                    age: req.body.age,
+                    photo: req.body.photo
+                } 
+
+                logger.logInfo.info(`photo ${user.photo} registered`)
                 user.password = await encryptUtils.encrypt(user.password)
                 
                 const res = await userDao.addUser(user)
                 logger.logInfo.info(`User ${res} registered`)
                 //console.log(await userModel.find({}).count())
-                return done(null, user.username)
+                return done(null, user)
             }
         }
     )
@@ -35,10 +47,16 @@ passport.use('register',
 
 passport.use(
     'login',
-    new localStrategy(async ( username, password, done) => {
+    new localStrategy(
+        {
+            usernameField : 'email',
+            passwordField : 'password',
+            passReqToCallback: true
+        },
+        async (req, email, password, done) => {
         logger.logInfo.info("Login")
-        const user =  await userDao.findUser(username)
-        logger.logInfo.info(`Registered user ${user?.username}`)
+        const user =  await userDao.findUser(email)
+        logger.logInfo.info(`Registered user ${user?.email}`)
         if (user) {
             const validPwd = await encryptUtils.compare(password, user.password)
         // check user password with hashed password stored in the database
@@ -59,7 +77,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (user, done) => {
     logger.logInfo.info(`deserializing user ${user}`)
-    let userFound = await userDao.findUser(user.username)
+    let userFound = await userDao.findUser(user.email)
     if (!userFound) {
         return done(new Error('user not found'), user);
     }

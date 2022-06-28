@@ -13,7 +13,7 @@ router.get('/home', (req, res)=> {
     }
     else{
         logger.logInfo.info("user is logged in")
-        res.render('logged', {username: user.username})
+        res.render('logged', {email: user.name})
     }
 })
 

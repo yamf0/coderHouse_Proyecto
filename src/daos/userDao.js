@@ -25,18 +25,18 @@ class userMongoDao {
     }
   };
 
-  findUser = async (username) => {
-    logger.logInfo.info(`Query for user ${username}`);
+  findUser = async (email) => {
+    logger.logInfo.info(`Query for user ${email}`);
     await this.connect2Db();
     let res;
     try {
-      res = await user.findOne({ username: username });
+      res = await user.findOne({ email: email });
     } catch (e) {
       logger.logInfo.error(e);
       return null;
     }
     if(!res){
-      logger.logInfo.info(`User ${username} not found`);
+      logger.logInfo.info(`User ${email} not found`);
       return null
     }
     logger.logInfo.info(`User found with id ${res._id}`);
@@ -44,7 +44,7 @@ class userMongoDao {
   }
 
   addUser = async (userInfo) => {
-    logger.logInfo.info(`Adding user ${userInfo.username}`);
+    logger.logInfo.info(`Adding user ${userInfo.email}`);
     await this.connect2Db();
     try {
       var res = await user.create(userInfo);
@@ -53,8 +53,8 @@ class userMongoDao {
       logger.logInfo.error(err);
       return null;
     }
-    logger.logInfo.info(`new user ${userInfo.username} added`);
-    return res.username;
+    logger.logInfo.info(`new user ${userInfo.email} added`);
+    return res.email;
   };
 
 }
