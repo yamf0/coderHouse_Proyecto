@@ -3,15 +3,17 @@ import { carrito } from '../models/carritoModel.js';
 import mongoose from 'mongoose';
 import config from '../config/config.js';
 
+import loggers from '../loggers/loggers.js';
+
 class carritoMongoDao{
 
   constructor(){
-      console.log("Dao de Carritos en Mongo inicializado")
+      loggers.logInfo.info("Dao de Carritos en Mongo inicializado")
       this.URL = config.mongoURL
   }
 
   connect2Db = async () => {
-    console.log("connecting to mongoDB atlas")
+    loggers.logInfo.info("connecting to mongoDB atlas")
     
     try{
         await mongoose.connect(
@@ -21,12 +23,12 @@ class carritoMongoDao{
               useUnifiedTopology: true
             })
     }catch(e){
-        console.log(e)
+        loggers.logInfo.error(e)
     }
   }
 
   addShoppingCar = async () => {
-      console.log("Adding new shopping car")
+      loggers.logInfo.info("Adding new shopping car")
       await this.connect2Db() 
       let newCar = {
         "id": 1,
@@ -44,50 +46,50 @@ class carritoMongoDao{
         var res = await carrito.create(newCar)
         mongoose.disconnect()
       } catch(err){
-          console.log(err)
+          loggers.logInfo.info(err)
           return null
       }
       return newCar.id
   }
 
   delShoppingCar = async (id) => {
-      console.log("Removing Shopping car")
+      loggers.logInfo.info("Removing Shopping car")
       await this.connect2Db() 
       let res
       try{
         res = await carrito.deleteOne({id: id})
         mongoose.disconnect()
       }catch(e){
-        console.log(e)
+        loggers.logInfo.error(e)
         return 1
       }
       return 0
   }
   getProdsInCar = async (id) => {
-      console.log("Getting products in car")
+      loggers.logInfo.info("Getting products in car")
       await this.connect2Db() 
       let res
       try{
         res = await carrito.findOne({id: id})
         mongoose.disconnect()
       }catch(e){
-        console.log(e)
+        loggers.logInfo.error(e)
         return 1
       }
-      console.log(`Products in cart are ${res.productos}`)
+      loggers.logInfo.info(`Products in cart are ${res.productos}`)
       return res.products
   }
   addProduct = async (id, newProd) => {
-      console.log("Adding new product to Car")
+      loggers.logInfo.info(`Adding product ${newProd} to Car ${id}`)
       await this.connect2Db() 
       let car
       try{
           car = await carrito.findOne({id: id})
       }catch(e){
-        console.log(e)
+        loggers.logInfo.error(e)
         return 1
       }
-      console.log("Adding product to car")
+      loggers.logInfo.info("Adding product to car")
       if(car.products.length != 0){
         const max = car.products.reduce(function(prev, current) {
           return (prev.id > current.id) ? prev : current
@@ -98,30 +100,30 @@ class carritoMongoDao{
         newProd.id = 1
       }
       car.products.push(newProd)
-      console.log(car.products)
+      loggers.logInfo.info(car.products)
       let res
       try{
           res = await carrito.updateOne({id: id}, car)
           mongoose.disconnect()
       }catch(e){
-        console.log(e)
+        loggers.logInfo.error(e)
         return 1
       }
-      console.log(`Product added with Id ${newProd.id}`)
+      loggers.logInfo.info(`Product added with Id ${newProd.id}`)
       return 0      
   }
   
   delProduct = async (idCar, idProd) => {
-      console.log("Removing product")
+      loggers.logInfo.info("Removing product")
       await this.connect2Db() 
       let res
       try{
           res = await carrito.updateOne({id: idCar},
             {$pull: {products: {id: idProd}}})
-            console.log(res)
+            loggers.logInfo.info(res)
           mongoose.disconnect()
         }catch(e){
-          console.log(e)
+          loggers.logInfo.error(e)
           return 1
       }
       
@@ -129,16 +131,16 @@ class carritoMongoDao{
   }
 
   getAllCars = async () => {
-      console.log("Retrieving all cars")
+      loggers.logInfo.info("Retrieving all cars")
       await this.connect2Db()     
       let res
       try{
         res = await carrito.find({})
       }catch(e){
-        console.log(e)
+        loggers.logInfo.error(e)
         return null
       }
-      console.log("Cars List retrieved")
+      loggers.logInfo.info("Cars List retrieved")
       return res
 
 
@@ -159,7 +161,7 @@ export default new carritoMongoDao()
     "id": 1,
     "precio": 203
 
-}).then(res => console.log(res))  */
+}).then(res => loggers.logInfo.info(res))  */
 
-//ob.getProduct(1).then(prod => console.log(prod))
-//ob.delProduct(1).then(prod => console.log(prod))
+//ob.getProduct(1).then(prod => loggers.logInfo.info(prod))
+//ob.delProduct(1).then(prod => loggers.logInfo.info(prod))

@@ -74,5 +74,4 @@ router.delete('/:idCar/productos/:idProd', async (req, res) => {
     return res.status(200).send({message: "Product deleted from car"});
 })
 
-
 export default router

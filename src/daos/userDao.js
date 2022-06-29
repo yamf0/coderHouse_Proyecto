@@ -57,6 +57,23 @@ class userMongoDao {
     return res.email;
   };
 
+  addCarToUser = async(email, shoppingCar) =>{
+    logger.logInfo.info(`Adding carId ${shoppingCar} to user ${email}`)
+    
+    await this.connect2Db();
+    try {
+      var res = await user.updateOne({email: email},
+        {"$set": {shoppingCar: shoppingCar}});
+      mongoose.disconnect();
+    } catch (err) {
+      logger.logInfo.error(err);
+      return null;
+    }
+    logger.logInfo.info(`User shoppingCar update acknowledged ${res.acknowledged}`);
+    return res.modifiedCount;
+
+  }
+
 }
 
 export default new userMongoDao()

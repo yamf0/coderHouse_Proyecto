@@ -1,0 +1,117 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #E3F0FF, #FAFCFF);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+   }
+
+.topNav{
+    width: 70%;
+    height: 10%;
+    background-color: #a0c7dd;
+    border-radius: 20px;
+    box-shadow: 0px 25px 40px #1687d933;
+    justify-content: center;
+    align-items: center;
+}
+.topNav.Heading{
+    font-size: 20px;
+    font-family: ‘Open Sans’;
+    font-weight: 700;
+    color: #2F3841;
+    text-align: center;
+}
+
+.container{
+    width: 70%;
+    height: 85%;
+    overflow: auto;
+    max-height: 100vh;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 25px 40px #1687d933;
+   }
+
+.Header{
+    margin: auto;
+    width: 90%;
+    height: 15%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   }
+.Heading{
+    font-size: 20px;
+    font-family: ‘Open Sans’;
+    font-weight: 700;
+    color: #2F3841;
+   }
+
+.producto {
+    margin: auto;
+    width: 90%;
+    height: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.imagen {
+    width: 15%;
+    text-align: center;
+}
+
+.about {
+    height: 100%;
+}
+
+.nombre {
+    padding-top: 5px;
+    line-height: 10px;
+    font-size: 32px;
+    font-family: ‘Open Sans’;
+    font-weight: 800;
+    color: #202020;
+}
+
+.descripcion {
+    line-height: 10px;
+    font-size: 18px;
+    font-family: ‘Open Sans’;
+    font-weight: 600;
+    color: #909090;
+}
+
+.precio{
+    height: 100%;
+    text-align: right;
+    padding-top: 20px;
+    font-size: 26px;
+    font-family: ‘Open Sans’;
+    font-weight: 800;
+    color: #202020;
+   }
+.stock{
+    height: 100%;
+    text-align: right;
+    padding-top: 20px;
+    font-size: 26px;
+    font-family: ‘Open Sans’;
+    font-weight: 800;
+    color: #202020;
+   }
+.addProd{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #6cb4e4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #202020;
+    cursor: pointer;
+}

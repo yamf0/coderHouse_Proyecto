@@ -30,7 +30,11 @@ const UserSchema = new mongoose.Schema({
     required: true
   },
   photo: {
-    contentType: String
+    type: String,
+    required: true
+  },
+  shoppingCar:{
+    type: String
   }
 });
 

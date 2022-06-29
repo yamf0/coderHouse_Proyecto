@@ -1,18 +1,21 @@
 html
   head
-    title Porductos page
+    title Homepage
     style
       include ../style/style.css
-  body
-
-    h1 
-      div(class="oneLine")
-        br
-        p Bienvenido #{name}
-        form(method = "POST" action = "/logout" style= "float:right")
+  body    
+    div(class="topNav")
+      ul 
+        li Bienvenido #{name}
+        li 
+          a(href="/api/user/shoppingCar") Mi carrito
+        li 
+          a(href="/api/productos/productsPage") Productos
+        li 
+          form(method = "POST" action = "/logout" style= "float:right")
             button Logout
     div
-
+      p Agregar un producto nuevo
       form
         label(for = "product") Product Name:
         input(type = "text", name = "product")

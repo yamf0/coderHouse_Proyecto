@@ -8,7 +8,7 @@ import logger from '../loggers/loggers.js'
 class productMongoDao{
 
   constructor(){
-      console.log("Dao de productos en Mongo inicializado")
+      logger.logInfo.info("Dao de productos en Mongo inicializado")
       this.URL = config.mongoURL
   }
 
