@@ -16,13 +16,15 @@ html
             p $400
         div(class="topNav Heading")
             a(href="") Eliminar Carrito
+        div(class="topNav Heading")
+            a(href="") Realizar compra
 
     div(class="container")
       div(class="header")
         h3(class="heading") Todos los Productos 
         h3(class="heading") Producto 
         h3(class="heading") Precio
-        h3(class="heading") Stock
+
 
       each prod in products
         div(class="producto")
@@ -32,6 +34,6 @@ html
             h1(class="nombre") #{prod.nombre}
             p(class="descripcion") #{prod.descripcion}
           div(class="precio") $#{prod.precio}
-          div(class="stock") #{prod.stock}
+
 
       
