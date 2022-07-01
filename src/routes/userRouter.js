@@ -38,7 +38,7 @@ router.get('/shoppingCar', async (req, res) => {
         logger.logInfo.info("Adding new car to user")
         let newCarId = await carritoDao.addShoppingCar()
 
-        let addCarRes = await userMongoDao.addCarToUser(user, newCarId)
+        let addCarRes = await userMongoDao.addCarToUser(userInfo.email, newCarId)
         if(!addCarRes){
             logger.logInfo.warn("Car was not added")
 
