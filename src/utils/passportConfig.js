@@ -4,23 +4,7 @@ import {Strategy as localStrategy}  from 'passport-local'
 import encryptUtils  from '../utils/encryptPassword.js'
 import userDao from '../daos/userDao.js'
 import logger from '../loggers/loggers.js'
-import {transporter, testEmail} from './messagingUtils.js'
-
-const sendRegistrationEmail = async() =>{
-    const mailOptions = {
-            from: 'coderHouse Proyecto', // Sender address
-            to: testEmail, // List of recipients
-            subject: 'Registration', // Subject line
-            text: 'Welcome to our platform!', // Plain text body
-    }
-    transporter.sendMail(mailOptions, function(err, info) {
-        if (err) {
-          logger.logError.error(err)
-        } else {
-          logger.logInfo.info("succesfully sent email");
-        }
-    });
-}
+import {sendRegistrationEmail} from './messagingUtils.js'
 
 passport.use('register',
     new localStrategy(

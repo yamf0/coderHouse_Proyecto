@@ -11,13 +11,17 @@ html
         div(class="topNav Heading")
             h2 Mi Carrito de compras 
         div(class="topNav Heading") Items
-            p 10
+            p #{totalProds}
         div(class="topNav Heading") Costo
-            p $400
+            p $ #{price}
         div(class="topNav Heading")
             a(href="") Eliminar Carrito
         div(class="topNav Heading")
-            a(href="") Realizar compra
+            form(name="submitForm" method="POST" action="/api/user/buyShoppingCart")
+              input(type="hidden", name="price", value=price)
+              input(type="hidden", name="prods", value=products)
+              a(HREF="javascript:document.submitForm.submit()")
+                button(class="checkout") Comprar productos
 
     div(class="container")
       div(class="header")
