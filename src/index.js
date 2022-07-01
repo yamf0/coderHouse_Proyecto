@@ -44,8 +44,9 @@ const argv = yargs()
   .help()
   .alias('help', 'h').argv;
 
-//SET PORT TO -p or 8080
-const port = argv.port || 8080
+//SET PORT TO -p or 3000
+const port = argv.port || process.env.PORT || 3000
+const host = '0.0.0.0';
 //SET mode to FORK or -m
 const MODO = argv.mode || 'FORK'
 
@@ -103,7 +104,7 @@ else{
     app.use("/api", processRouter)
     app.use("", homeRouter)
 
-    app.listen(port,() => {
+    app.listen(port, host,() => {
         logger.logInfo.info("server running")
     })
 }
