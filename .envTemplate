@@ -1,2 +1,6 @@
-pwd=""
-secret=""
+PWD=""
+
+SECRET=""
+
+ACCSID=
+AUTHTOKEN=
