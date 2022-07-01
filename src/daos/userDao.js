@@ -10,6 +10,7 @@ class userMongoDao {
   constructor() {
     logger.logInfo.info("DAO for users initialized");
     this.URL = config.mongoURL;
+    logger.logInfo.info(`MonogUrl is ${this.URL}`)
   }
 
   connect2Db = async () => {

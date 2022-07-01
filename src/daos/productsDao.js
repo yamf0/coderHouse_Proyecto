@@ -10,6 +10,7 @@ class productMongoDao{
   constructor(){
       logger.logInfo.info("Dao de productos en Mongo inicializado")
       this.URL = config.mongoURL
+      logger.logInfo.info(`MonogUrl is ${this.URL}`)
   }
 
   connect2Db = async () => {

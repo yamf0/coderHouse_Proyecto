@@ -10,6 +10,7 @@ class carritoMongoDao{
   constructor(){
       loggers.logInfo.info("Dao de Carritos en Mongo inicializado")
       this.URL = config.mongoURL
+      loggers.logInfo.info(`MonogUrl is ${this.URL}`)
   }
 
   connect2Db = async () => {
