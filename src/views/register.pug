@@ -1,0 +1,39 @@
+html
+  head
+    title Register page
+    style
+      include ../style/style.css
+  body
+    h1 Register User
+    form(method="POST", action="/api/user/register", id='registerForm')
+        label(for = "email") Email:
+        input(type = "text", name = "email")
+        br
+        label(for = "password") Password:
+        input(type = "password", name = "password")
+        br
+        label(for = "name") Name:
+        input(type = "text", name = "name")
+        br
+        label(for = "address") Address:
+        input(type = "text", name = "address")      
+        br
+        label(for="countryCode") Country Code: 
+          include countryCodes.pug  
+
+        label(for = "phone") Phone Number :
+        input(type = "tel", name = "phone")
+        br
+        label(for = "age") Age:
+        input(type = "text", name = "age")
+        br
+        label(for = "photo") Photo:
+        input(type = "text", name="photo")
+        br
+        input(type = "submit", value="Register")
+    
+    hr 
+
+    p Already Registered?
+    a(href="/login")
+      input(type="button", value="Login page")

@@ -1,4 +1,6 @@
-pwd=""
-DBCONNECTION="mongo"
-DBCONNECTION="firebase"
-DBCONNECTION="filesystem"
+MONGOPWD=""
+
+SECRET=""
+
+ACCSID=
+AUTHTOKEN=

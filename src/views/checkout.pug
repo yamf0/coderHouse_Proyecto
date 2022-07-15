@@ -1,0 +1,35 @@
+html
+  head
+    title Checkout
+    style
+      include ../style/productsStyle.css
+
+  body
+
+    div(class="topNav") 
+      div(class="header")
+        div(class="topNav Heading")
+            h1 Gracias por tu compra!
+
+    div(class="container")
+      div(class="header")
+        h3(class="heading") Productos comprados 
+        h3(class="heading") Producto 
+        h3(class="heading") Precio
+      p #{products}
+      each prod in products
+        div(class="producto")
+          div(class="imagen")
+            img(src="images/Mexican Sombrero.png")
+          div(class="about")
+            h1(class="nombre") #{prod.nombre}
+            p(class="descripcion") #{prod.descripcion}
+          div(class="precio") $#{prod.precio}
+
+
+    div(class="summaryNav") 
+      div(class="header")
+        div(class="summaryNav Heading")
+            h1 Gracias por tu compra!
+        div(class="summaryNav Heading")
+            h1 Total #{price}

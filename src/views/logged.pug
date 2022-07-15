@@ -1,0 +1,29 @@
+html
+  head
+    title Homepage
+    style
+      include ../style/style.css
+  body    
+    div(class="topNav")
+      ul 
+        li Bienvenido #{name}
+        li 
+          a(href="/api/user/shoppingCar") Mi carrito
+        li 
+          a(href="/api/productos/productsPage") Productos
+        li 
+          form(method = "POST" action = "/logout" style= "float:right")
+            button Logout
+    div
+      p Agregar un producto nuevo
+      form
+        label(for = "product") Product Name:
+        input(type = "text", name = "product")
+        br
+        label(for = "price") Price:
+        input(type = "text", name = "price")
+        br
+        label(for = "photo") Photo URL:
+        input(type = "text", name = "photo")
+        br
+        input(class="submitBtn" type = "submit", name = "submit", value = "submit")
