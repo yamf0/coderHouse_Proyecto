@@ -1,4 +1,6 @@
 import {producto} from '../models/productosModel.js';
+import productoDto from '../dto/productoDto.js';
+
 import mongoose from 'mongoose';
 import config from '../config/config.js';
 
@@ -40,7 +42,7 @@ class productMongoDao{
         return 1
       }
       console.log("Product found")
-      return prod
+      return new productoDto(prod)
   }
 
   addProduct = async (newProd) => {
@@ -103,13 +105,19 @@ class productMongoDao{
       return 1
     }
     console.log("Products List retrieved")
-    return res
+
+    const productosList = []
+      res.forEach(prod => {
+        productosList.push(new productoDto(prod))
+      })
+
+    return productosList
   }
 
 }
 
 
-export default new productMongoDao()
+export default productMongoDao
 
 //const ob = new productMongoDao()
 /* ob.addProduct({

@@ -1,11 +1,11 @@
 import logger from '../loggers/loggers.js'
 import express from 'express'
 
-import carritoDao from '../daos/carritosMongoDao.js'
-import userMongoDao from '../daos/userDao.js'
+import {objectsDaos} from '../daos/daoFactory.js'
+
+const {carritoDao, userDao} = objectsDaos
 
 import passport from 'passport'
-import carritosMongoDao from '../daos/carritosMongoDao.js'
 import {sendCheckoutEmail, sendCheckoutMessage} from '../utils/messagingUtils.js'
 // Single routing
 var router = express.Router()
@@ -26,7 +26,7 @@ router.get('/shoppingCar', async (req, res) => {
     logger.logInfo.info(`Accessing carritos page for ${user}`)
     
     try{
-        var userInfo = await userMongoDao.findUser(user.email)
+        var userInfo = await userDao.findUser(user.email)
     }
     catch(e){
         return res.end({error: e})
@@ -38,7 +38,7 @@ router.get('/shoppingCar', async (req, res) => {
         logger.logInfo.info("Adding new car to user")
         let newCarId = await carritoDao.addShoppingCar()
 
-        let addCarRes = await userMongoDao.addCarToUser(userInfo.email, newCarId)
+        let addCarRes = await userDao.addCarToUser(userInfo.email, newCarId)
         if(!addCarRes){
             logger.logInfo.warn("Car was not added")
 
@@ -48,7 +48,7 @@ router.get('/shoppingCar', async (req, res) => {
     }
     logger.logInfo.info(`User ${user} has car ${userInfo.shoppingCar}`)
     
-    let products = await carritosMongoDao.getProdsInCar(userInfo.shoppingCar)
+    let products = await carritoDao.getProdsInCar(userInfo.shoppingCar)
     logger.logInfo.info(`Products on car ${products?.length}`)
 
     let totalProds = products?.length

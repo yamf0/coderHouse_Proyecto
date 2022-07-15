@@ -1,4 +1,5 @@
 import { carrito } from '../models/carritoModel.js';
+import carritoDto from '../dto/carritoDto.js';
 
 import mongoose from 'mongoose';
 import config from '../config/config.js';
@@ -142,15 +143,20 @@ class carritoMongoDao{
         return null
       }
       loggers.logInfo.info("Cars List retrieved")
-      return res
 
+      const carritosList = []
+      res.forEach(car => {
+        carritosList.push(new carritoDto(car))
+      })
+      
+      return carritosList
 
   }
 
 }
 
 
-export default new carritoMongoDao()
+export default carritoMongoDao
 
 //const ob = new productMongoDao()
 /* ob.addProduct({

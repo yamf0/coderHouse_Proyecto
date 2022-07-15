@@ -2,6 +2,7 @@
 import logger  from '../loggers/loggers.js'
 
 import user from "../models/userModel.js";
+import userDto from '../dto/userDto.js';
 
 import mongoose from "mongoose";
 import config from "../config/config.js";
@@ -41,7 +42,10 @@ class userMongoDao {
       return null
     }
     logger.logInfo.info(`User found with id ${res._id}`);
-    return res;
+
+    const userObj = userDto(res)
+
+    return userObj;
   }
 
   addUser = async (userInfo) => {
@@ -77,4 +81,4 @@ class userMongoDao {
 
 }
 
-export default new userMongoDao()
+export default userMongoDao
